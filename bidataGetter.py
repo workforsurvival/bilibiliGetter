@@ -58,7 +58,6 @@ try:
             else:
                 driver.execute_script("window.scrollTo(0,1080)")
                 time.sleep(1)
-                driver.execute_script("window.scrollTo(0,1080)")
 
                 title = driver.find_element_by_xpath(
                     '//*[@id="viewbox_report"]/h1/span'
@@ -103,6 +102,7 @@ try:
                             if bool("class=\"next\">下一页</a>" in driver.page_source):
                                 nextPageBtn = driver.find_element_by_class_name("next")
                                 nextPageBtn.click()
+                                driver.execute_script("window.scrollTo(0,1080)")
                                 # nowPage = int(
                                 #     driver.find_element_by_class_name("current").text
                                 # )
@@ -114,7 +114,8 @@ try:
                                 _recomments = driver.find_elements_by_class_name("text-con")
                                 for recommend in _recomments:
                                     recomments.append(recommend.text)
-                                print(str(p)+',',end='')
+                                # print(str(p)+',',end='')
+                                print(str(p))
                                 p = p + 1
                             else:
                                 break
