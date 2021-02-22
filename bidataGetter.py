@@ -92,31 +92,32 @@ try:
                 # Next 버튼 클릭
                 # 새로운 페이지 있는지 판단
                 # 새로운 페이지일시 다시 코멘츠를 짤라 넣기
-                totalPage = driver.find_elements_by_class_name("tcd-number")[-1].text
-                tPage = int(totalPage)
+                # totalPage = driver.find_elements_by_class_name("tcd-number")[-1].text
+                # tPage = int(totalPage)
+                print('🏌️‍♂️[%s] ⌸ %s ' % (cid,title))
+                tPage = 1000
                 if tPage > 0:
                     p = 1
                     while p < tPage:
                         try:
-                            if bool(driver.find_element_by_class_name("next")):
+                            if bool("class=\"next\">下一页</a>" in driver.page_source):
                                 nextPageBtn = driver.find_element_by_class_name("next")
                                 nextPageBtn.click()
-                                # time.sleep(0.5)
-                                nowPage = int(
-                                    driver.find_element_by_class_name("current").text
-                                )
-                                if bool(p + 1 == nowPage):
-                                    _comments = driver.find_elements_by_class_name("text")
-                                    for comment in _comments:
-                                        comments.append(comment.text)
-                                    _recomments = driver.find_elements_by_class_name(
-                                        "text-con"
-                                    )
-                                    for recommend in _recomments:
-                                        recomments.append(recommend.text)
-                                    p = p + 1
-                            else:
+                                # nowPage = int(
+                                #     driver.find_element_by_class_name("current").text
+                                # )
+                                # if bool(p + 1 == nowPage):
+                                _comments = driver.find_elements_by_class_name("text")
+                                for comment in _comments:
+                                    comments.append(comment.text)
+                                # time.sleep(0.3)
+                                _recomments = driver.find_elements_by_class_name("text-con")
+                                for recommend in _recomments:
+                                    recomments.append(recommend.text)
+                                print(str(p)+',',end='')
                                 p = p + 1
+                            else:
+                                break
                         except Exception as err:
                             print("OS error: {0}".format(err))
                             p = p + 1
@@ -137,7 +138,7 @@ try:
                 # json파일로 저장
                 with open(fileName, "w") as json_file:
                     json.dump(item, json_file)
-                    print(fileName + " done.")
+                    print("file copyed %s" % (cid))
                 items.append(item)
                 i = i + 1
         except OSError as err:

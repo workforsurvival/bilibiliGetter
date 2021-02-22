@@ -9,37 +9,43 @@ use `bidata`;
 set
   foreign_key_checks = 0;
 -- 콘텐츠정보(영화,드라마,예능등등등)
-  DROP TABLE IF EXISTS `Contents`;
-CREATE TABLE `Contents` (
+  DROP TABLE IF EXISTS `contents`;
+CREATE TABLE `contents` (
     `contUid` int(11) NOT NULL AUTO_INCREMENT,
-    `crUid` int(11) DEFAULT 0,
     `cid` varchar(150) DEFAULT NULL,
-    `creator` varchar(150) DEFAULT NULL,
     `title` longtext DEFAULT NULL,
+    `creator` varchar(150) DEFAULT NULL,
+    `tmCount` varchar(50) DEFAULT NULL,
+    `info` longtext DEFAULT NULL,
+    `addCount` varchar(50) DEFAULT NULL,
     `tags` longtext DEFAULT NULL,
-    `thumbnail` longtext DEFAULT NULL,
-    `description` longtext DEFAULT NULL,
-    `hits` varchar(50) DEFAULT NULL,
-    `thumbsUp` int(11) DEFAULT 0,
     `cDate` datetime DEFAULT current_timestamp(),
-    FOREIGN KEY (`crUid`) REFERENCES `Creator`(`crUid`),
     PRIMARY KEY (`contUid`)
   ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4;
---insert into Contents
-set
-  cid = 'fdsfdsfds',
-  crea CREATE TABLE `comments`(
+
+insert into contents set cid = 'BV1wi4y1T7jZ',creator='sfds',title='fkfkfk',tags='gsgdsfds',info='fdsfdsfds',addCount='100000';
+
+  DROP TABLE IF EXISTS `comments`;
+CREATE TABLE `comments`(
     `uid` int(11) NOT NULL AUTO_INCREMENT,
+    `cid` varchar(150) DEFAULT NULL,
     `comment` longtext DEFAULT NULL,
+    `type` tinyint(2) DEFAULT 0,
     `cDate` DATETIME DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (`uid`)
   ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4;
+
+insert into comments set cid='BV1wi4y1T7jZ',comment='올라',type=1;
+
 CREATE TABLE `words`(
     `uid` int(11) NOT NULL AUTO_INCREMENT,
     `cid` varchar(150) DEFAULT NULL,
     `words` varchar(150) DEFAULT NULL,
-    `count` BIGINT (11) DEFAULT NULL,
+    `count` BIGINT (11) DEFAULT 0,
     `comment` longtext DEFAULT NULL,
     `cDate` DATETIME DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (`uid`)
   ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4;
+
+insert into words set cid='BV1wi4y1T7jZ',words='sum';
+update words set count=count+1 where cid='BV1wi4y1T7jZ';
