@@ -37,11 +37,20 @@ class mysql_helper:
             return self.fetchone("select contUid from contents where cid=%s",(cid))['contUid']
 
     def selectCount(self,table,uid,val):
+        try:
+            with self._conn.cursor() as cursor:
+                query="select count(*) as cnt from "+table+" where "+uid+"='"+val+"'"
+                cursor.execute(query)
+                result = cursor.fetchone()
+                return result['cnt']
+        except:
+            pass
+
+    def getRecords(self,type):
         with self._conn.cursor() as cursor:
-            query="select count(*) as cnt from "+table+" where "+uid+"='"+val+"'"
-            cursor.execute(query)
-            result = cursor.fetchone()
-            return result['cnt']
+            cursor.execute("select * from comments where type=%s",(type))
+            result = list(cursor.fetchall())
+            return result
 
     def fetch(self,query):
         with self._conn.cursor() as cursor:

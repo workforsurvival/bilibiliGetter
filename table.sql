@@ -37,15 +37,19 @@ CREATE TABLE `comments`(
 
 insert into comments set cid='BV1wi4y1T7jZ',comment='올라',type=1;
 
+DROP TABLE IF EXISTS `words`;
 CREATE TABLE `words`(
     `uid` int(11) NOT NULL AUTO_INCREMENT,
     `cid` varchar(150) DEFAULT NULL,
     `words` varchar(150) DEFAULT NULL,
-    `count` BIGINT (11) DEFAULT 0,
+    `count` BIGINT (11) DEFAULT 1,
     `comment` longtext DEFAULT NULL,
     `cDate` DATETIME DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (`uid`)
   ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4;
-
+alter table words add index words(words);
+alter table words add index cid(cid);
 insert into words set cid='BV1wi4y1T7jZ',words='sum';
 update words set count=count+1 where cid='BV1wi4y1T7jZ';
+
+
