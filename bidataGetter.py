@@ -1,6 +1,7 @@
 import time, requests, re, json, datetime,sys
 from bs4 import BeautifulSoup
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
 from _init import funcInit
 from _mHelper import mysql_helper
 
@@ -51,12 +52,10 @@ try:
             time.sleep(3)
             driver.get(url)
         try:
-            if bool("404 Not Found" in driver.page_source):
-                # print("--404: "+ data['cid'])
-                # imy.exec("delete from Product where cid=%s",(data['cid']))
-                pass
-            else:
-
+            time.sleep(7)
+            driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
+            time.sleep(7)
+            if bool("class=\"next\">下一页</a>" in driver.page_source):
                 title = driver.find_element_by_xpath('//*[@id="viewbox_report"]/h1/span').text
                 # creator = driver.find_element_by_xpath('//*[@id="v_upinfo"]/div[2]/div[1]/a[1]').get_attribute("href")
                 # tmCount = driver.find_element_by_xpath('//*[@id="viewbox_report"]/div/span[2]').text
@@ -91,11 +90,9 @@ try:
                 tPage = limitPageNum
                 if tPage > 0:
                     p = 1
-                    driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
-                    time.sleep(5)
                     while p < tPage:
                         try:
-                            if bool("class=\"next\">下一页</a>" in driver.page_source):
+                            if bool("class=\"next\">下一页</a>" in driver.page_source and i!=1):
                                 driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
                                 time.sleep(0.1)
                                 for comment in driver.find_elements_by_class_name("text"):
