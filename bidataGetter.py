@@ -10,7 +10,7 @@ driver = cInit.set_driver()
 # set region
 # 1-417
 
-limitPageNum = 10
+limitPageNum = 100
 
 if limitPageNum <= 0:
     print('argv value is false.')
@@ -55,6 +55,8 @@ try:
             time.sleep(7)
             driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
             time.sleep(7)
+            driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
+            time.sleep(7)
             if bool("class=\"next\">下一页</a>" in driver.page_source):
                 title = driver.find_element_by_xpath('//*[@id="viewbox_report"]/h1/span').text
                 # creator = driver.find_element_by_xpath('//*[@id="v_upinfo"]/div[2]/div[1]/a[1]').get_attribute("href")
@@ -94,17 +96,18 @@ try:
                         try:
                             if bool("class=\"next\">下一页</a>" in driver.page_source and i!=1):
                                 driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
-                                time.sleep(0.1)
+                                time.sleep(0.2)
                                 for comment in driver.find_elements_by_class_name("text"):
                                     comments.append(comment.text)
-                                time.sleep(0.1)
+                                time.sleep(0.2)
                                 for recommend in driver.find_elements_by_class_name("text-con"):
                                     recomments.append(recommend.text)
                                 # print(str(p)+',',end='')
                                 print(str(p))
                                 p = p + 1
+                                time.sleep(1.5)
                                 driver.find_element_by_class_name("next").click()
-                                time.sleep(0.2)
+                                time.sleep(1.5)
                             else:
                                 break
                         except Exception as err:

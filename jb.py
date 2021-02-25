@@ -11,7 +11,10 @@ for type in types:
         try:
             cuts = jieba.cut(rec['comment'],use_paddle=True)
             for cut in cuts:
-                imy.insertR("insert into words set cid=%s,words=%s",(rec['cid'],cut))
+                if imy.selectCount("words",'words',cut) == 0:
+                    imy.insertR("insert into words set cid=%s,words=%s",(rec['cid'],cut))
+                else:
+                    imy.updateR("update words set count=count+1 where words=%s",(cut))
                 # print('cut')
             imy.updateR("update comments set type=3 where cid=%s",(rec['cid']))            
             print('rec done:[%s]'%rec)

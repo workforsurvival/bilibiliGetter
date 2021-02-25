@@ -3,7 +3,7 @@ from _mHelper import mysql_helper
 
 ### 0. 사용되는 함수와 변수들
 # video,manga,webtoon,picture,novel
-folders = ['video']
+folders = ['jdata']
 for folder in folders:
     imy = mysql_helper()
     ### 1. 폴더밑에 파일을 읽는다.
