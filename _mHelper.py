@@ -3,11 +3,10 @@ import pymysql.cursors
 class mysql_helper:
     def __init__(self):
         self._conn = pymysql.connect(
-            #host='128.14.150.254',
             host='localhost',
             port=3306,
             user='root',
-            password='jinri52',
+            password='sdf123411ooa',
             db='bidata',
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor
